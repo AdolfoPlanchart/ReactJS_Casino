@@ -1,24 +1,28 @@
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
-import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/grid";
+import { makeStyles } from '@material-ui/core/styles';
 
-const Header = () => {
+const useStyles = makeStyles(theme => ({
+    appBarSeparator: theme.mixins.toolbar
+  }));
+
+const Header = ({balance}) => {
+    const classes = useStyles();
     return(
-        <Grid container className="App">
-        <AppBar position='static'>
+        <Grid container className="Header">
+        <AppBar position='fixed'>
           <Toolbar>
-            <Grid container xs='6'>
+            <Grid container>
               <Typography variant='h6'>
                 React Casino
               </Typography>
             </Grid>
-            <Grid container xs='6' justify='flex-end' alignItems='center'>
+            <Grid container justify='flex-end' alignItems='center'>
               <Typography variant='h6'>
-                $0.00
+                { balance == null ? '$0.00' : '$' + balance}
               </Typography>
             <Button color='inherit' >
               Login
@@ -26,6 +30,7 @@ const Header = () => {
             </Grid>
           </Toolbar>
         </AppBar>
+        <div className={ classes.appBarSeparator } />
       </Grid>
     );
 }
